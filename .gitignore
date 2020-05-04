@@ -1,6 +1,8 @@
-Assets/
-Library/
-Logs/
-Packages/
-ProjectSettings/
-Temp/
+[Ll]ibrary/
+[Ll]ogs/
+[Tt]emp/
+[Bb]uild/
+[Bb]uilds/
+[Oo]bj/
+*.apk
+sysinfo.txt
