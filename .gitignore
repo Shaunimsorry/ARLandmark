@@ -4,7 +4,7 @@
 [Bb]uild/
 [Bb]uilds/
 [Ll]ogs/
-
-###Adding SDK Ignores###
-[Aa]ssets/Arcore
+[Aa]ssets/Google ARCore
 [Aa]ssets/SenseAR
+[Mm]apboxAR
+[Mm]apbox
