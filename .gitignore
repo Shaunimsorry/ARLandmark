@@ -1,1 +1,7 @@
+.vscode/
 [Ll]ibrary/
+[Ll]ogs/
+[Oo]bj/
+[Tt]emp/
+Assembly-CSharp.csproj
+Unity.sln
