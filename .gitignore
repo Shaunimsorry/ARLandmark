@@ -3,5 +3,26 @@
 [Ll]ogs/
 [Oo]bj/
 [Tt]emp/
+[Mm]apbox
+[Mm]apboxAR
+[Ss]enseAR
+[Ss]treamingAssets
+[Tt]hirdPartyAssets
+[Uu]nityARInterface
+[Uu]nityARKitPlugin
+[Gg]oogleARCore
+
+##File Specfic Ignores
+GoogleARCore.meta
+Mapbox.meta
+MapboxAR.meta
+SenseAR.meta
+StreamingAssets.meta
+ThirdpartyAssets.meta
+UnityARInterface.meta
+UnityARKitPlugin.meta
+
+###Solution Ignores
 Assembly-CSharp.csproj
+Assembly-CSharp-Editor.csproj
 Unity.sln
