@@ -4,8 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Threading;
+//SenseAR
 using SenseAR;
 using SenseARInternal;
+//MapBox
+using Mapbox;
+using Mapbox.Utils;
+using Mapbox.Unity.Location;
 
 
 public class SenseARRevEng : MonoBehaviour
@@ -22,7 +27,10 @@ public class SenseARRevEng : MonoBehaviour
     public Button stopSlam;
     public Text debugTXT0;
     public Text debugTXT1;
+    public Text gpsText0;
 
+    //MapBox API Interface
+    public LocationProviderFactory mapboxLocationFactory;
     void start()
     {
         //Init
@@ -38,6 +46,9 @@ public class SenseARRevEng : MonoBehaviour
             NativeSession.RequestInstall(1,ref status);
         }
         ApiArStatus ret = NativeSession.CheckAuthorized(getAppId());
+
+        //Starting Location For Compass and GPS
+        Input.location.Start();
     }
 
     private void AsynCheckCapability()
@@ -58,6 +69,10 @@ public class SenseARRevEng : MonoBehaviour
             SenseARInstance = (GameObject)Instantiate(SenseArPrefab, transform.position,transform.rotation);
             slamController = GameObject.Find("SlamController").GetComponent<SenseARSLAMController>();
             updateTexture = GameObject.Find("ARCamera").GetComponent<SenseARUpdateTexture>();
+
+            //Attempt Disabling The PointCloud as it is visually distracting
+            slamController.m_PointCloudPrefab.SetActive(false);
+
         }
     }
 
@@ -78,6 +93,10 @@ public class SenseARRevEng : MonoBehaviour
             //Start Outputting Slam Info to screen
             debugTXT0.text = slamController.GetSLAMDebugStr();
         }
-
+        
+        //Live Mapbox Location Debugging
+        var locationProvider = mapboxLocationFactory.DefaultLocationProvider;
+        gpsText0.text = "Current Location: " + "\n" + locationProvider.CurrentLocation.LatitudeLongitude.ToString() +"\n" + "Current Heading: " + Input.compass.trueHeading.ToString();
     }
+
 }
