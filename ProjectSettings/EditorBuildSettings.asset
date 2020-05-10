@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/SenseAR/Examples/HelloAR/Scene/HelloAR.unity
     guid: 045e425094b5f45d29e1937275a1c9ef
   - enabled: 1
-    path: Assets/Scenes/BasicDeviceARCamera.unity
+    path: Assets/Scenes/BasicSenseARStartStop.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

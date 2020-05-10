@@ -17,7 +17,7 @@ public class SenseARRevEng : MonoBehaviour
     private SenseARUpdateTexture updateTexture;
     public AndroidPermissionUtil permissionUtil;
 
-    //Slam UI CTRL
+    //Slam UI CTRL and setup Debug On Screen Text Objects
     public Button startSlam;
     public Button stopSlam;
     public Text debugTXT0;
@@ -25,6 +25,7 @@ public class SenseARRevEng : MonoBehaviour
 
     void start()
     {
+        //Init
         SenseARInstance = null;
         axisInstance = null;
         slamController = null;
@@ -36,7 +37,6 @@ public class SenseARRevEng : MonoBehaviour
             ApiArInstallStatus status = ApiArInstallStatus.AR_INSTALL_STATUS_INSTALL_REQUESTED;
             NativeSession.RequestInstall(1,ref status);
         }
-
         ApiArStatus ret = NativeSession.CheckAuthorized(getAppId());
     }
 
@@ -58,8 +58,6 @@ public class SenseARRevEng : MonoBehaviour
             SenseARInstance = (GameObject)Instantiate(SenseArPrefab, transform.position,transform.rotation);
             slamController = GameObject.Find("SlamController").GetComponent<SenseARSLAMController>();
             updateTexture = GameObject.Find("ARCamera").GetComponent<SenseARUpdateTexture>();
-            debugTXT0.text = "Finished Running";
-            debugTXT1.text = slamController.GetSLAMDebugStr();
         }
     }
 
@@ -68,7 +66,7 @@ public class SenseARRevEng : MonoBehaviour
         slamController = null;
         Destroy(SenseARInstance);
         SenseARInstance = null;
-
+        
         debugTXT1.text = "Sense AR Destroyed";
         debugTXT0.text = "Sense AR Destroyed";
     }

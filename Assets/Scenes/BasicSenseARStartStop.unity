@@ -520,8 +520,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159, y: 222}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 78.3, y: 222}
+  m_SizeDelta: {x: 634.64966, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &963194225
 GameObject:
@@ -654,6 +654,7 @@ MonoBehaviour:
     type: 3}
   permissionUtil: {fileID: 1010865798}
   startSlam: {fileID: 206667116}
+  stopSlam: {fileID: 1050648667}
   debugTXT0: {fileID: 848977850}
   debugTXT1: {fileID: 1370704010}
 --- !u!114 &1010865798
@@ -818,7 +819,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1010865797}
-        m_MethodName: StartSenseAR
+        m_MethodName: StopSenseAR
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -899,8 +900,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159, y: 192}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 78.298, y: 192}
+  m_SizeDelta: {x: 634.6527, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1370704010
 MonoBehaviour:
