@@ -70,4 +70,14 @@ public class SenseARRevEng : MonoBehaviour
         debugTXT1.text = "Sense AR Destroyed";
         debugTXT0.text = "Sense AR Destroyed";
     }
+
+    void Update()
+    {
+        if(slamController)
+        {
+            //Start Outputting Slam Info to screen
+            debugTXT0.text = slamController.GetSLAMDebugStr();
+        }
+
+    }
 }
