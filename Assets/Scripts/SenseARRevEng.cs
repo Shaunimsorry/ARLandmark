@@ -11,6 +11,8 @@ using SenseARInternal;
 using Mapbox;
 using Mapbox.Utils;
 using Mapbox.Unity.Location;
+using Mapbox.Unity.Utilities;
+using Mapbox.Unity.Ar;
 
 
 public class SenseARRevEng : MonoBehaviour
@@ -31,6 +33,7 @@ public class SenseARRevEng : MonoBehaviour
 
     //MapBox API Interface
     public LocationProviderFactory mapboxLocationFactory;
+    public GameObject ArAlignedMapInterface;
     void start()
     {
         //Init
@@ -72,6 +75,8 @@ public class SenseARRevEng : MonoBehaviour
 
             //Attempt Disabling The PointCloud as it is visually distracting
             slamController.m_PointCloudPrefab.SetActive(false);
+
+            ArAlignedMapInterface.GetComponent<SimpleAutomaticSynchronizationContextBehaviour>()._arPositionReference = GameObject.Find("ARCamera").transform;
         }
     }
     public void StopSenseAR()
