@@ -72,10 +72,8 @@ public class SenseARRevEng : MonoBehaviour
 
             //Attempt Disabling The PointCloud as it is visually distracting
             slamController.m_PointCloudPrefab.SetActive(false);
-
         }
     }
-
     public void StopSenseAR()
     {
         slamController = null;
@@ -97,6 +95,15 @@ public class SenseARRevEng : MonoBehaviour
         //Live Mapbox Location Debugging
         var locationProvider = mapboxLocationFactory.DefaultLocationProvider;
         gpsText0.text = "Current Location: " + "\n" + locationProvider.CurrentLocation.LatitudeLongitude.ToString() +"\n" + "Current Heading: " + Input.compass.trueHeading.ToString();
+
+
+        //SenseAR Camera Testing
+        //Log The Camera's Position to the GUI [For Test Purposes]
+        var unityCamPos = GameObject.Find("ARCamera").transform.position.ToString();
+        var unityCamCompPos = GameObject.Find("ARCamera").GetComponent<Camera>().transform.position.ToString();
+        var SenseARCompPos = GameObject.Find("ARCamera").GetComponent<SenseARCameraPose>().transform.position.ToString();
+        //TextOutPUT
+        debugTXT1.text = unityCamPos+"\n"+unityCamPos+"\n"+SenseARCompPos;
     }
 
 }
