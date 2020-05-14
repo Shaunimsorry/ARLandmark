@@ -47,7 +47,6 @@ public class SenseARSLAMSystem : MonoBehaviour
 
     public string GetSLAMDebugStr()
     {
-#if UNITY_ANDROID
         if (m_SLAMDebugInfo != null)
         {
             System.Array.Clear(m_SLAMDebugInfo, 0, 2048);
@@ -55,7 +54,6 @@ public class SenseARSLAMSystem : MonoBehaviour
             string str = System.Text.Encoding.Default.GetString(m_SLAMDebugInfo);
             return str;
         }
-#endif
         return "";
     }
 
@@ -77,10 +75,8 @@ public class SenseARSLAMSystem : MonoBehaviour
     {
         float fov = new float();
         int FrameWidth = 0, FrameHeight = 0;
-#if UNITY_ANDROID
         m_NativeSession.getTextureSize(ref FrameWidth, ref FrameHeight);
         m_NativeSession.getVerticalFov(ref fov);
-#endif
         float cameraFocal = FrameHeight * 0.5f / Mathf.Tan(fov * 0.5f * Mathf.PI / 180.0f);
         float h = Screen.height * FrameWidth / Screen.width;
         float realFov = 2.0f * Mathf.Atan(0.5f * h / cameraFocal) * 180.0f / Mathf.PI;
@@ -101,98 +97,98 @@ public class SenseARSLAMSystem : MonoBehaviour
             }
         }
 
-        if(GetComponentInParent<SenseARSession>().SessionConfig.HandGestureAlgorithmMode == ApiAlgorithmMode.Enabled)
-        {
-            GetHandGestures(m_AllHandGestures);
-        }
+        // if(GetComponentInParent<SenseARSession>().SessionConfig.HandGestureAlgorithmMode == ApiAlgorithmMode.Enabled)
+        // {
+        //     GetHandGestures(m_AllHandGestures);
+        // }
 
-        if (GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
-        {
-            GetTrackedImages();
-        }
+        // if (GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
+        // {
+        //     GetTrackedImages();
+        // }
 
-        if (GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
+        // if (GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
 
-        {
-            GetTrackedImagesWithSLAM();
-        }
+        // {
+        //     GetTrackedImagesWithSLAM();
+        // }
     }
 
-    private void GetTrackedImages()
-    {
-        List<Trackable> trackedImages = new List<Trackable>();
-        m_NativeSession.SessionApi.GetAllTrackables(trackedImages, ApiTrackableType.Image);
-        MarkerMap.Clear();
-        for (int i = 0; i < trackedImages.Count; i++)
-        {
-            int index = ((TrackedImage)trackedImages[i]).Index;
+    // private void GetTrackedImages()
+    // {
+    //     List<Trackable> trackedImages = new List<Trackable>();
+    //     m_NativeSession.SessionApi.GetAllTrackables(trackedImages, ApiTrackableType.Image);
+    //     MarkerMap.Clear();
+    //     for (int i = 0; i < trackedImages.Count; i++)
+    //     {
+    //         int index = ((TrackedImage)trackedImages[i]).Index;
 
-            TrackingState state = trackedImages[i].TrackingState;
-            if (state != TrackingState.Tracking)
-            {
-                return;
-            }
+    //         TrackingState state = trackedImages[i].TrackingState;
+    //         if (state != TrackingState.Tracking)
+    //         {
+    //             return;
+    //         }
 
-            Pose pose = ((TrackedImage)trackedImages[i]).CenterPose;
+    //         Pose pose = ((TrackedImage)trackedImages[i]).CenterPose;
 
-            if (MarkerMap.ContainsKey(index) == false)
-            {
-                MarkerMap.Add(index, pose);
-                Debug.Log("Marker add: " + index + " pos: " + pose.position);
-            }
-            else
-            {
-                MarkerMap[index] = pose;
-                Debug.Log("Marker update: " + pose.position);
-            }
-        }
-    }
+    //         if (MarkerMap.ContainsKey(index) == false)
+    //         {
+    //             MarkerMap.Add(index, pose);
+    //             Debug.Log("Marker add: " + index + " pos: " + pose.position);
+    //         }
+    //         else
+    //         {
+    //             MarkerMap[index] = pose;
+    //             Debug.Log("Marker update: " + pose.position);
+    //         }
+    //     }
+    // }
 
-    private void GetTrackedImagesWithSLAM()
-    {
-        List<Trackable> trackedImages = new List<Trackable>();
-        m_NativeSession.SessionApi.GetAllTrackables(trackedImages, ApiTrackableType.Image);
-        for (int i = 0; i < trackedImages.Count; i++)
-        {
-            int index = ((TrackedImage)trackedImages[i]).Index;
+    // private void GetTrackedImagesWithSLAM()
+    // {
+    //     List<Trackable> trackedImages = new List<Trackable>();
+    //     m_NativeSession.SessionApi.GetAllTrackables(trackedImages, ApiTrackableType.Image);
+    //     for (int i = 0; i < trackedImages.Count; i++)
+    //     {
+    //         int index = ((TrackedImage)trackedImages[i]).Index;
 
-            TrackingState state = trackedImages[i].TrackingState;
-            if (state != TrackingState.Tracking)
-            {
-                return;
-            }
+    //         TrackingState state = trackedImages[i].TrackingState;
+    //         if (state != TrackingState.Tracking)
+    //         {
+    //             return;
+    //         }
 
-            Pose pose = ((TrackedImage)trackedImages[i]).CenterPose;
+    //         Pose pose = ((TrackedImage)trackedImages[i]).CenterPose;
 
-            if (MarkerMap.ContainsKey(index) == false)
-            {
-                MarkerMap.Add(index, pose);
-                Debug.Log("Marker add: " + index + " pos: " + pose.position);
-            }
-            else
-            {
-                MarkerMap[index] = pose;
-                Debug.Log("Marker update: " + pose.position);
-            }
-        }
-    }
+    //         if (MarkerMap.ContainsKey(index) == false)
+    //         {
+    //             MarkerMap.Add(index, pose);
+    //             Debug.Log("Marker add: " + index + " pos: " + pose.position);
+    //         }
+    //         else
+    //         {
+    //             MarkerMap[index] = pose;
+    //             Debug.Log("Marker update: " + pose.position);
+    //         }
+    //     }
+    // }
 
-    private void GetHandGestures<T>(List<T> AllTrackables) where T : Trackable
-    {
-        if (m_NativeSession == null)
-            return;
+    // private void GetHandGestures<T>(List<T> AllTrackables) where T : Trackable
+    // {
+    //     if (m_NativeSession == null)
+    //         return;
 
-        AllTrackables.Clear();
+    //     AllTrackables.Clear();
 
-        List<Trackable> tempTrackableList = new List<Trackable>();
-        m_NativeSession.SessionApi.GetAllTrackables(tempTrackableList, ApiTrackableType.HandGesture);
+    //     List<Trackable> tempTrackableList = new List<Trackable>();
+    //     m_NativeSession.SessionApi.GetAllTrackables(tempTrackableList, ApiTrackableType.HandGesture);
 
-        for(int i = 0; i < tempTrackableList.Count; i++)
-        {
-            _SafeAdd<T>(tempTrackableList[i], AllTrackables);
-        }
+    //     for(int i = 0; i < tempTrackableList.Count; i++)
+    //     {
+    //         _SafeAdd<T>(tempTrackableList[i], AllTrackables);
+    //     }
         
-    }
+    // }
 
     private void GetPlanes<T>(List<T> NewTrackables, List<T> AllTrackables) where T : Trackable
     {
@@ -290,8 +286,8 @@ public class SenseARSLAMSystem : MonoBehaviour
         return m_AllPlanes.Count;
     }
 
-    public List<TrackedHandGesture> GetHandGestures()
-    {
-        return m_AllHandGestures;
-    }
+    // public List<TrackedHandGesture> GetHandGestures()
+    // {
+    //     return m_AllHandGestures;
+    // }
 }
