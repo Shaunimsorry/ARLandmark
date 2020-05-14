@@ -9,67 +9,27 @@ public class SenseARSLAMSystem : MonoBehaviour
 {
 
     private NativeSession m_NativeSession;
-
-    /// <summary>
-    /// The first-person camera being used to render the passthrough camera image (i.e. AR background).
-    /// </summary>
     public Camera m_Camera;
 
-    /// <summary>
-    /// A prefab for tracking and visualizing detected planes.
-    /// </summary>
     public GameObject m_TrackedPlanePrefab;
     private bool m_bEnableTrackedPlane = true;
 
-	/// <summary>
-	//  point cloud visulize prefab
-	/// </summary>
 	public GameObject m_PointCloudPrefab;
 
-    /// <summary>
-    /// A list to hold new planes ARCore began tracking in the current frame. This object is used across
-    /// the application to avoid per-frame allocations.
-    /// </summary>
     private List<TrackedPlane> m_NewPlanes = new List<TrackedPlane>();
-
-    /// <summary>
-    /// A list to hold all planes ARCore is tracking in the current frame. This object is used across
-    /// the application to avoid per-frame allocations.
-    /// </summary>
     private List<TrackedPlane> m_AllPlanes = new List<TrackedPlane>();
-
-    /// <summary>
-    /// A list to hold all hand gestures tracked in the current frame. This object is used across
-    /// the application to avoid per-frame allocations.
-    /// </summary>
     private List<TrackedHandGesture> m_AllHandGestures = new List<TrackedHandGesture>();
-
-    /// <summary>
-    /// plane mesh game object list for visulization
-    /// </summary>
     private List<GameObject> PlaneLists = new List<GameObject>();
-
-
-    /// <summary>
-    // point cloud instance
-    /// </summary>
     GameObject pointCloudInstance = null;
-
-    /// <summary>
-    // SLAM debug string
-    /// </summary>
     private byte[] m_SLAMDebugInfo ;
 
-    /// <summary>
-    // previous plane count
-    /// </summary>
     private int mOldPlanes = 0;
 
     private bool UseDepthTextureOcclusion = true;
 
     public Dictionary<int, Pose> MarkerMap = new Dictionary<int, Pose>();
 
-    // Use this for initialization
+
     void Start()
     {
         m_NativeSession = Session.GetNativeSession();
@@ -110,12 +70,9 @@ public class SenseARSLAMSystem : MonoBehaviour
         }
 
         mOldPlanes = 0;
-        //_RemovePlaneGameObject();
+
     }
 
-    /// <summary>
-    /// The Unity Update() method.
-    /// </summary>
     void Update()
     {
         float fov = new float();
@@ -133,14 +90,10 @@ public class SenseARSLAMSystem : MonoBehaviour
         {
             if (m_TrackedPlanePrefab)
             {
-                // Iterate over planes found in this frame and instantiate corresponding GameObjects to visualize them.
                 GetPlanes(m_NewPlanes, m_AllPlanes);
 
                 for (int i = 0; i < m_NewPlanes.Count; i++)
                 {
-                    // Instantiate a plane visualization prefab and set it to track the new plane. The transform is set to
-                    // the origin with an identity rotation since the mesh for our prefab is updated in Unity World
-                    // coordinates.
                     GameObject planeObject = Instantiate(m_TrackedPlanePrefab, Vector3.zero, Quaternion.identity, transform);
                     planeObject.GetComponent<TrackedPlaneVisualizer>().Initialize(m_NewPlanes[i]);
                     PlaneLists.Add(planeObject);
@@ -150,18 +103,7 @@ public class SenseARSLAMSystem : MonoBehaviour
 
         if(GetComponentInParent<SenseARSession>().SessionConfig.HandGestureAlgorithmMode == ApiAlgorithmMode.Enabled)
         {
-            //update hand gestures
             GetHandGestures(m_AllHandGestures);
-
-            // for(int i = 0; i< m_AllHandGestures.Count; i++)
-            // {
-            //     Debug.Log("hand type "+m_AllHandGestures[i].HandGestureType);
-            //     Debug.Log("hand side "+m_AllHandGestures[i].HandeSide);
-            //     Debug.Log("hand towards "+m_AllHandGestures[i].HandTowards);
-            //     Debug.Log("hand type confidence "+m_AllHandGestures[i].GestureTypeConfidence);
-            //     Debug.Log("landmark 2d count "+m_AllHandGestures[i].LandMark2DCount);
-            //     Debug.Log("landmark2d test "+m_AllHandGestures[i].LandMark2D[0]);
-            // }
         }
 
         if (GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
@@ -262,14 +204,10 @@ public class SenseARSLAMSystem : MonoBehaviour
         List<Trackable> tempTrackableList = new List<Trackable>();
 
         m_NativeSession.SessionApi.GetAllTrackables(tempTrackableList, ApiTrackableType.Plane);
-
-        //Debug.Log ("Plane:" + tempTrackableList.Count);
         for (int i = 0; i < tempTrackableList.Count; i++)
         {
             _SafeAdd<T>(tempTrackableList[i], AllTrackables);
         }
-
-        //get new planes
         int all = tempTrackableList.Count;
         if (all > mOldPlanes)
         {
@@ -282,7 +220,7 @@ public class SenseARSLAMSystem : MonoBehaviour
         }
         else if(all < mOldPlanes)
         {
-            // begin to reset 
+
             mOldPlanes = 0;
             _RemovePlaneGameObject();
             for (int i = mOldPlanes; i < tempTrackableList.Count; i++)
