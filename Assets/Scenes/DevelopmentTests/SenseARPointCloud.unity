@@ -452,12 +452,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a889cbb0b9503ce43b8ee622a784014c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SenseARPrefab: {fileID: 1482435144372356692, guid: aa7e98e9aa5ec0a41926de1297d3b925,
+  SenseARPrefab: {fileID: 6541434145039787792, guid: acb520717a5307d49b9f31e9bae38a5c,
     type: 3}
   senseARInstance: {fileID: 0}
   senseARSLAMController: {fileID: 0}
   updateTexture: {fileID: 0}
   andriodPermissionUtility: {fileID: 1314645352}
+  planeTracking: 1
+  pointClouds: 1
 --- !u!4 &1314645354
 Transform:
   m_ObjectHideFlags: 0
