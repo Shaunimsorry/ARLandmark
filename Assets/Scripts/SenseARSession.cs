@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices;
 using SenseARInternal;
 using UnityEngine;
-//    using UnityEngine.XR;
 using System.Collections;
 using SenseAR;
 
@@ -55,10 +54,7 @@ public class SenseARSession : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        #if UNITY_EDITOR
-        #else
         m_SessionManager.Pause();
-        #endif
     }
 
     public void Connect()
