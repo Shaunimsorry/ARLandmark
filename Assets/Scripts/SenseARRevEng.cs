@@ -34,6 +34,13 @@ public class SenseARRevEng : MonoBehaviour
     //MapBox API Interface
     public LocationProviderFactory mapboxLocationFactory;
     public GameObject ArAlignedMapInterface;
+
+    //GroundPlane Fixation Tests
+    //The idea is to fixate the camera height or lock the Y axis allowing movement only in the X and Z Axis.
+    //We can also play with locking the dutch or the orientation to a more simpler rotation possibly minimizing twist.
+     
+    public bool groundplaneDetected;
+    public float userHeight;
     void start()
     {
         //Init
@@ -91,6 +98,23 @@ public class SenseARRevEng : MonoBehaviour
 
     void Update()
     {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         if(slamController)
         {
             //Start Outputting Slam Info to screen
