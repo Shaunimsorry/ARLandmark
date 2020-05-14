@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: DefaultSessionConfig
   m_EditorClassIdentifier: 
   MatchCameraFramerate: 1
-  StreamMode: 1
   SLAMAlgorithmMode: 1
+  SLAMStreamMode: 2000
   HandGestureAlgorithmMode: 0
+  HandGestureStreamMode: 2000
   DenseMeshAlgorithmMode: 0
-  MarkerAlgorithmMode: 0
+  DenseMeshStreamMode: 2100
+  ImageTrackingAlgorithmMode: 0
+  ImageTrackingStreamMode: 2000
   PlaneFindingAlgorithmMode: 1
   PlaneFinding: 3
+  PlaneFindingStreamMode: 2000
   LightEstimationAlgorithmMode: 1
   LightEstimation: 1
+  LightEstimationStreamMode: 2000
   CloudAnchorAlgorithmMode: 0
+  CloudAnchorStreamMode: 2000
