@@ -11,6 +11,8 @@ public class SenseARSLAMSystem : MonoBehaviour
     private NativeSession m_NativeSession;
     public Camera m_Camera;
 
+    public SenseARSession senseARSession;
+
     public GameObject m_TrackedPlanePrefab;
     private bool m_bEnableTrackedPlane = true;
 
@@ -82,7 +84,7 @@ public class SenseARSLAMSystem : MonoBehaviour
         float realFov = 2.0f * Mathf.Atan(0.5f * h / cameraFocal) * 180.0f / Mathf.PI;
         m_Camera.fieldOfView = realFov;
 
-        if (GetComponentInParent<SenseARSession>().SessionConfig.SLAMAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.PlaneFindingAlgorithmMode == ApiAlgorithmMode.Enabled)
+        if (senseARSession.SessionConfig.SLAMAlgorithmMode == ApiAlgorithmMode.Enabled && senseARSession.SessionConfig.PlaneFindingAlgorithmMode == ApiAlgorithmMode.Enabled)
         {
             if (m_TrackedPlanePrefab)
             {
@@ -97,17 +99,17 @@ public class SenseARSLAMSystem : MonoBehaviour
             }
         }
 
-        // if(GetComponentInParent<SenseARSession>().SessionConfig.HandGestureAlgorithmMode == ApiAlgorithmMode.Enabled)
+        // if(senseARSession.SessionConfig.HandGestureAlgorithmMode == ApiAlgorithmMode.Enabled)
         // {
         //     GetHandGestures(m_AllHandGestures);
         // }
 
-        // if (GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
+        // if (senseARSession.SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && senseARSession.SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
         // {
         //     GetTrackedImages();
         // }
 
-        // if (GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && GetComponentInParent<SenseARSession>().SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
+        // if (senseARSession.SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled && senseARSession.SessionConfig.ImageTrackingAlgorithmMode == ApiAlgorithmMode.Enabled)
 
         // {
         //     GetTrackedImagesWithSLAM();

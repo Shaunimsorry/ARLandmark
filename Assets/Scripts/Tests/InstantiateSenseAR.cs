@@ -10,9 +10,12 @@ public class InstantiateSenseAR : MonoBehaviour
 {
     public GameObject SenseARPrefab;
     public GameObject senseARInstance;
-    public SenseARSLAMController senseARSLAMController;
+    public SenseARSLAMSystem senseARSLAMController;
     public SenseARUpdateTextureOES updateTexture;
     public AndroidPermissionUtil andriodPermissionUtility;
+
+    public bool planeTracking = true;
+    public bool pointClouds = true;
 
     void Start()
     {
@@ -41,9 +44,17 @@ public class InstantiateSenseAR : MonoBehaviour
         if(senseARInstance==null)
         {
             senseARInstance = (GameObject)Instantiate(SenseARPrefab, transform.position,transform.rotation);
-            senseARSLAMController = GameObject.Find("SlamController").GetComponent<SenseARSLAMController>();
+            senseARSLAMController = GameObject.Find("SlamController").GetComponent<SenseARSLAMSystem>();
             updateTexture = GameObject.Find("ARCamera").GetComponent<SenseARUpdateTextureOES>();
             senseARSLAMController.m_PointCloudPrefab.SetActive(true);
+        }
+
+        if(planeTracking)
+        {
+            senseARInstance.GetComponent<SenseARSession>().SessionConfig.PlaneFindingAlgorithmMode = ApiAlgorithmMode.Enabled;
+        }else
+        {
+            senseARInstance.GetComponent<SenseARSession>().SessionConfig.PlaneFindingAlgorithmMode = ApiAlgorithmMode.Disabled;
         }
     }
 }

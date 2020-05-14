@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DevelopmentTests/SenseARCameraControl.unity
+    path: Assets/Scenes/DevelopmentTests/SenseARPointCloud.unity
     guid: 0649e38040291044a9129796d03b686b
   m_configObjects: {}
