@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,8 +15,20 @@ public class InstantiateSenseAR : MonoBehaviour
     public SenseARUpdateTextureOES updateTexture;
     public AndroidPermissionUtil andriodPermissionUtility;
 
-    public bool planeTracking = true;
-    public bool pointClouds = true;
+    public Text debugTxt0;
+    public Text debugTxt1;
+    public Text debugTxt2;
+
+    public NativeSession _nativeSession;
+    public HandGestureApi _handgestureapi;
+
+    //The Handle for the Handgesture
+    public IntPtr _handgestureHandle;
+    public HandGestureType _handGestureType;
+
+    public IntPtr _listHandle;
+    public IntPtr _trackableHandle;
+    public List<Trackable> TrackList = new  List<Trackable>();
 
     void Start()
     {
@@ -48,13 +61,27 @@ public class InstantiateSenseAR : MonoBehaviour
             updateTexture = GameObject.Find("ARCamera").GetComponent<SenseARUpdateTextureOES>();
             senseARSLAMController.m_PointCloudPrefab.SetActive(true);
         }
+    }
 
-        if(planeTracking)
+    void Update()
+    {
+        //Discord Help:
+        // _nativeSession.SessionApi.GetAllTrackables(TrackList,ApiTrackableType.HandGesture);
+        // if(TrackList[0] is TrackedHandGesture thg)
+        // {
+        //     var a = thg.HandGestureType;
+        //     debugTxt0.text = "Tracklist Count Is:" + TrackList.Count.ToString()+"\n"+thg.HandGestureType.ToString();
+        // }
+
+        if(_nativeSession == null)
         {
-            senseARInstance.GetComponent<SenseARSession>().SessionConfig.PlaneFindingAlgorithmMode = ApiAlgorithmMode.Enabled;
+            _nativeSession = senseARSLAMController.m_NativeSession;
+            debugTxt0.text = ("No Native Session Set,attempting to set native session up");
         }else
         {
-            senseARInstance.GetComponent<SenseARSession>().SessionConfig.PlaneFindingAlgorithmMode = ApiAlgorithmMode.Disabled;
+            _handgestureapi = _nativeSession.HandGestureApi;
+            debugTxt0.text  = _nativeSession.SessionApi.GetTrackableCount(ApiTrackableType.HandGesture).ToString();
         }
+
     }
 }

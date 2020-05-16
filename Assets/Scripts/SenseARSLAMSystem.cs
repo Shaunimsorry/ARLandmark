@@ -8,7 +8,7 @@ using SenseAR.HelloAR;
 public class SenseARSLAMSystem : MonoBehaviour
 {
 
-    private NativeSession m_NativeSession;
+    public NativeSession m_NativeSession;
     public Camera m_Camera;
 
     public SenseARSession senseARSession;
